@@ -76,3 +76,11 @@ class Joint(Element):
 
     pose: Optional[Pose] = dataclasses.field(default=None)
     axis: Optional[Axis] = dataclasses.field(default=None)
+
+    gearbox_ratio: Optional[float] = dataclasses.field(
+        default=1.0,
+        metadata=mashumaro.field_options(serialize=Element.serialize_float),
+    )
+    gearbox_reference_body: Optional[str] = dataclasses.field(
+        default=None, metadata=mashumaro.field_options(alias="@gearbox_reference_body")
+    )

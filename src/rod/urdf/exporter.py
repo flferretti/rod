@@ -187,6 +187,7 @@ class UrdfExporter(abc.ABC):
                     "@xyz": " ".join(np.array(frame.pose.xyz, dtype=str)),
                     "@rpy": " ".join(np.array(frame.pose.rpy, dtype=str)),
                 },
+                "gearbox_ratio":
             }
 
             logging.debug(
@@ -386,6 +387,16 @@ class UrdfExporter(abc.ABC):
                             if j.axis is not None
                             and j.axis.limit is not None
                             and j.type != "fixed"
+                            else dict()
+                        ),
+                        **(
+                            {"gearbox_ratio": j.gearbox_ratio}
+                            if j.gearbox_ratio is not None
+                            else dict()
+                        ),
+                        **(
+                            {"gearbox_reference_body": j.gearbox_reference_body}
+                            if j.gearbox_reference_body is not None
                             else dict()
                         ),
                         # mimic: does not have any SDF corresponding element
